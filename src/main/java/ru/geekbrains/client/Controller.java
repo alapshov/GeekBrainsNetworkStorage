@@ -3,10 +3,8 @@ package ru.geekbrains.client;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -33,6 +31,7 @@ public class Controller implements Initializable {
             while (true) {
                 String command = inputStream.readUTF();
                 if (command.equals("#list#")) {
+                    serverFiles.getItems().clear();
                     int filesCount = inputStream.readInt();
                     for (int i = 0; i < filesCount; i++) {
                         String name = inputStream.readUTF();
@@ -60,7 +59,7 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            baseDir = Paths.get(System.getProperty("user.home"));
+            baseDir = Paths.get("E:/Porgramming");
 //            clientFiles.setCellFactory(list -> new ListCell<FileInfo>(){
 //                @Override
 //                protected void updateItem(FileInfo item, boolean empty) {

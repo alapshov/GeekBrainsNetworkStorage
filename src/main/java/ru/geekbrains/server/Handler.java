@@ -51,11 +51,11 @@ public class Handler implements Runnable {
             while (true) {
                 String command = inputStream.readUTF();
                 System.out.println("received command: " + command);
-                if (command.equals("upload")) {
+                if (command.equals("#upload#")) {
                     String fileName = inputStream.readUTF();
                     long size = inputStream.readLong();
                     try (FileOutputStream fileOutputStream = new FileOutputStream(currentDir.resolve(fileName).toFile())) {
-                        for (int i = 0; i < size + BUFFER_SIZE - 1 / BUFFER_SIZE; i++) {
+                        for (int i = 0; i < (size + BUFFER_SIZE - 1) / BUFFER_SIZE; i++) {
                             int read = inputStream.read(buffer);
                             fileOutputStream.write(buffer, 0, read);
                         }
