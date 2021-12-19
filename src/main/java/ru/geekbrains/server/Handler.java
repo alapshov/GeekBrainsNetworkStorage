@@ -1,9 +1,6 @@
 package ru.geekbrains.server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.Socket;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -51,16 +48,32 @@ public class Handler implements Runnable {
             while (true) {
                 String command = inputStream.readUTF();
                 System.out.println("received command: " + command);
-                if (command.equals("#upload#")) {
-                    String fileName = inputStream.readUTF();
-                    long size = inputStream.readLong();
-                    try (FileOutputStream fileOutputStream = new FileOutputStream(currentDir.resolve(fileName).toFile())) {
-                        for (int i = 0; i < (size + BUFFER_SIZE - 1) / BUFFER_SIZE; i++) {
-                            int read = inputStream.read(buffer);
-                            fileOutputStream.write(buffer, 0, read);
+                switch (command) {
+                    case "#upload#": {
+                        String fileName = inputStream.readUTF();
+                        long size = inputStream.readLong();
+                        try (FileOutputStream fileOutputStream = new FileOutputStream(currentDir.resolve(fileName).toFile())) {
+                            for (int i = 0; i < (size + BUFFER_SIZE - 1) / BUFFER_SIZE; i++) {
+                                int read = inputStream.read(buffer);
+                                fileOutputStream.write(buffer, 0, read);
+                            }
                         }
+                        sendServerFiles();
+                        break;
                     }
-                    sendServerFiles();
+                    case "#download#": {
+                        String fileName = inputStream.readUTF();
+                        long size = Files.size(currentDir.resolve(fileName));
+                        outputStream.writeUTF("#up#");
+                        outputStream.writeLong(size);
+                        try (FileInputStream fileInputStream = new FileInputStream(currentDir.resolve(fileName).toFile())) {
+                            for (int i = 0; i < size; i++) {
+                                int read = fileInputStream.read();
+                                outputStream.writeInt(read);
+                            }
+                        }
+                        break;
+                    }
                 }
             }
         } catch (Exception e) {
