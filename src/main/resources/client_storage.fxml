@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox  fx:controller="ru.geekbrains.client.Controller" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+    <MenuBar prefHeight="0.0" prefWidth="438.0" VBox.vgrow="NEVER">
+      <menus>
+        <Menu mnemonicParsing="false" text="File">
+          <items>
+            <MenuItem mnemonicParsing="false" text="Exit" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Edit">
+          <items>
+            <MenuItem mnemonicParsing="false" text="Cut" />
+            <MenuItem mnemonicParsing="false" text="Copy" />
+            <MenuItem mnemonicParsing="false" text="Paste" />
+            <MenuItem mnemonicParsing="false" text="Delete" />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+      <children>
+        <Label alignment="CENTER" layoutX="155.0" layoutY="177.0" style="&#10;" text="Drag components from Library here…" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
+          <font>
+            <Font size="18.0" />
+          </font>
+        </Label>
+            <ListView fx:id = "clientFiles" layoutX="49.0" layoutY="51.0" prefHeight="910.0" prefWidth="740.0" />
+            <ListView fx:id = "serverFiles" layoutX="1109.0" layoutY="51.0" prefHeight="910.0" prefWidth="740.0" />
+            <TextField layoutX="49.0" layoutY="14.0" prefHeight="25.0" prefWidth="675.0" />
+            <Button layoutX="737.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="52.0" text="..." />
+            <TextField layoutX="1109.0" layoutY="15.0" prefHeight="25.0" prefWidth="675.0" />
+            <Button layoutX="1797.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="52.0" text="..." />
+            <Button onAction="#upload" layoutX="836.0" layoutY="324.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="244.0" text="======&gt;&gt;&gt;&gt;" />
+            <Button onAction="#download" layoutX="836.0" layoutY="478.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="244.0" text="&lt;&lt;&lt;&lt;======" />
+      </children>
+    </AnchorPane>
+  </children>
+</VBox>
